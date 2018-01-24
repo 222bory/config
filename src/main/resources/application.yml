@@ -1,0 +1,25 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: CFG
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://172.32.1.88:10006/gsp/config-repo.git
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+
+---
+spring:
+  profiles: prd
+logging:
+  config: classpath:logback-prd.xml
+---
+spring:
+  profiles: ide
+logging:
+  config: classpath:logback-ide.xml
