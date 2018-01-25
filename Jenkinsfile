@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 
 node {
-
+	
     checkout scm
 
-    state('Test') {
+    stage('Test') {
         sh './gradlew check || true'
     }
 
