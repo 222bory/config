@@ -45,8 +45,10 @@ node {
     }
 
     stage('Deploy') {
+        echo 'Build Result : ' + currentBuild.result
+
         if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-            //sh 'make publish'
+            sh 'true'
         }
     }
 }
