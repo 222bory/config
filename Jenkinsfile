@@ -10,7 +10,7 @@ node {
 
     stage('Build') {
         sh './gradlew build dockerPush'
-        archiveArtifacts artifacts: '**/build/*.jar', fingerprint: true
+        archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
     }
 
     stage('Deploy') {
