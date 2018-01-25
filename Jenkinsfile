@@ -1,11 +1,24 @@
-node {
+pipeline {
 
-    stage ('CheckOut') {
-        checkout scm
+    agent any
+
+    stages {
+        stage ('CheckOut') {
+            checkout scm
+        }
+
+        state ('Text') {
+            sh './gradlew check'
+        }
+
+        stage ('Build') {
+            sh './gradlew build'
+        }
+
+        stage ('Build') {
+            sh './gradlew dockerPush'
+        }
     }
 
-    stage ('Build & Push') {
-        sh './gradlew clean build dockerPush'
-    }
 
 }
