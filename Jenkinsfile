@@ -2,6 +2,27 @@
 
 node {
 	
+	properties([
+      pipelineTriggers([
+       [$class: 'GenericTrigger',
+        genericVariables: [
+         [expressionType: 'JSONPath', key: 'reference', value: '$.ref'],
+         [expressionType: 'JSONPath', key: 'before', value: '$.before']
+        ],
+        genericRequestVariables: [
+         [key: 'requestWithNumber', regexpFilter: '[^0-9]'],
+         [key: 'requestWithString', regexpFilter: '']
+        ],
+        genericHeaderVariables: [
+         [key: 'headerWithNumber', regexpFilter: '[^0-9]'],
+         [key: 'headerWithString', regexpFilter: '']
+        ],
+        regexpFilterText: '',
+        regexpFilterExpression: ''
+       ]
+      ])
+    ])
+
     checkout scm
 
     stage('Test') {
