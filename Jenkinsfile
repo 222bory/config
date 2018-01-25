@@ -21,6 +21,18 @@ node {
       ])
     ])
 
+    stage("Info") {
+      sh '''
+      echo Variables from shell:
+      echo reference $reference
+      echo before $before
+      echo requestWithNumber $requestWithNumber
+      echo requestWithString $requestWithString
+      echo headerWithNumber $headerWithNumber
+      echo headerWithString $headerWithString
+      '''
+    }
+
     checkout scm
 
     stage('Test') {
