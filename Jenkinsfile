@@ -9,7 +9,7 @@ node {
                 ],
                 genericRequestVariables: [
                     [key: 'requestWithNumber', regexpFilter: '[^0-9]'],
-                    [key: 'requestWithString', regexpFilter: '']
+                    [key: 'repository', regexpFilter: 'config']
                 ],
                 genericHeaderVariables: [
                     [key: 'headerWithNumber', regexpFilter: '[^0-9]'],
@@ -26,10 +26,8 @@ node {
         echo Variables from shell:
         echo reference $reference
         echo before $before
-        echo requestWithNumber $requestWithNumber
+        echo Repository $repository
         echo requestWithString $requestWithString
-        echo headerWithNumber $headerWithNumber
-        echo headerWithString $headerWithString
         '''
     }
 
