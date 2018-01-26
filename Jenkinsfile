@@ -39,6 +39,11 @@ node {
         archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
     }
 
+    //Not required, but sensible - this will automatically abort the build if you wait too long
+    timeout(time: 1, unit: 'WEEK') {
+        input "Approve/deny deployment to production system"
+    }
+
     stage('Deploy') {
         echo 'Build Result : ' + currentBuild.result
 
