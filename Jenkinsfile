@@ -53,32 +53,52 @@ node {
             to: 'blue.park@kt.com',
             body: "Please go to $env.BUILD_URL."
 
-        def userInput = true
-        def didTimeout = false
+        script {
+            def filter = 'all'
 
-        try {
-            timeout(time: 1, unit: 'MINUTES') {
-                userInput = input(id: 'Proceed1', message: '배포하시겠습니까?', parameters: [
-                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-                    ])
-            }
-        } catch(e) {
-            def user = e.getCauses()[0].getUser()
-            if('SYSTEM' == user.toString()) {
-                didTimeout = true
-            } else {
-                userInput = false
-                echo "Aborted by: [${user}]"
-            }
-        }
+            waitUntil {
+                def bRun = build job: 'jobX', propagate: false  // To avoid failfast/propagate errors
+                if (bRun.getRawBuild().result.isWorseOrEqualTo(hudson.model.Result.FAILURE)) {
+                    def userInput = true
+                    def didTimeout = false
+                    def inputValue
 
-        if (didTimeout) {
-            echo "Timeout!!"
-            currentBuild.result = 'ABORTED'
-        } else if (userInput == true) {
-            currentBuild.result == 'SUCCESS'
-        } else {
-            currentBuild.result = 'ABORTED'
+                    try {
+
+                        // Timeout in case to avoid running this forever
+                        timeout(time: 60, unit: 'SECONDS') {
+                            inputValue = input(
+                                id: 'userInput', message: 'jobX failed let\'s rerun it?', parameters: [
+                                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                                ])
+                        }
+                    } catch(err) { // timeout reached or input false
+                        echo err.toString()
+                        def user = err.getCauses()[0].getUser()
+                        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+                            didTimeout = true
+                        } else {
+                            userInput = false
+                            echo "Aborted by: [${user}]"
+                        }
+                    }
+
+                    if (didTimeout) {
+                        echo "no input was received before timeout"
+                        false // false will cause infinite loops but it's a way to keep retrying, otherwise use true and will exit the loop
+                    } else if (userInput == true) {
+                        echo "this was successful"
+                        false // if user answered then iterate through the loop again
+                    } else {
+                        echo "this was not successful"
+                        currentBuild.result = 'ABORTED'
+                        true  // if user aborted the input then exit the loop
+                    }
+                } else {
+                    currentBuild.result = 'SUCCESS'
+                    true  // if build finished successfully as expected then exit the loop
+                }
+            }
         }
     }
 
