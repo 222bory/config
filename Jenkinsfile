@@ -62,9 +62,9 @@ node {
                     [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
                     ])
             }
-        } catch(err) {
-            def user = err.getCauses()[0].getUser()
-            if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+        } catch(e) {
+            def user = e.getCauses()[0].getUser()
+            if('SYSTEM' == user.toString()) {
                 didTimeout = true
             } else {
                 userInput = false
@@ -73,9 +73,8 @@ node {
         }
 
         if (didTimeout) {
-            // do something on timeout
             echo "no input was received before timeout"
-             currentBuild.result == 'SUCCESS'
+            currentBuild.result == 'SUCCESS'
         } else if (userInput == true) {
             currentBuild.result == 'SUCCESS'
             echo "this was successful"
