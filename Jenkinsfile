@@ -24,7 +24,7 @@ node {
     ])
 
     stage("Info") {
-        echo "${repository}/${reference}"
+        echo "Repository : ${repository}/${reference}"
 		echo "${after} => ${before}"
     }
 
