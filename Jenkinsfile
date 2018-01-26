@@ -73,13 +73,12 @@ node {
         }
 
         if (didTimeout) {
-            echo "no input was received before timeout"
-            currentBuild.result == 'ABORT'
+            echo "Timeout!!"
+            currentBuild.result = 'ABORTED'
         } else if (userInput == true) {
             currentBuild.result == 'SUCCESS'
-            echo "this was successful"
         } else {
-            currentBuild.result = 'ABORT'
+            currentBuild.result = 'ABORTED'
         }
     }
 
