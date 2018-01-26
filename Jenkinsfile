@@ -63,11 +63,14 @@ node {
                 // Timeout in case to avoid running this forever
                 timeout(time: 60, unit: 'SECONDS') {
                     inputValue = input(
-                        id: 'userInput', message: 'jobX failed let\'s rerun it?', parameters: [
-                            [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                        id: 'userInput', message: '계속 진행하시겠습니까?', parameters: [
+                            [$class: 'BooleanParameterDefinition',
+                                defaultValue: true,
+                                description: '', name: '확인'
+                            ]
                         ])
                 }
-            } catch(err) { // timeout reached or input false
+            } catch(err) {
                 echo err.toString()
                 def user = err.getCauses()[0].getUser()
                 if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
