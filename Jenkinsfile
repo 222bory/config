@@ -54,52 +54,43 @@ node {
             body: "Please go to $env.BUILD_URL."
 
         script {
-            def filter = 'all'
+            def userInput = true
+            def didTimeout = false
+            def inputValue
 
-            waitUntil {
-                def bRun = build job: 'jobX', propagate: false  // To avoid failfast/propagate errors
-                if (bRun.getRawBuild().result.isWorseOrEqualTo(hudson.model.Result.FAILURE)) {
-                    def userInput = true
-                    def didTimeout = false
-                    def inputValue
+            try {
 
-                    try {
-
-                        // Timeout in case to avoid running this forever
-                        timeout(time: 60, unit: 'SECONDS') {
-                            inputValue = input(
-                                id: 'userInput', message: 'jobX failed let\'s rerun it?', parameters: [
-                                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-                                ])
-                        }
-                    } catch(err) { // timeout reached or input false
-                        echo err.toString()
-                        def user = err.getCauses()[0].getUser()
-                        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-                            didTimeout = true
-                        } else {
-                            userInput = false
-                            echo "Aborted by: [${user}]"
-                        }
-                    }
-
-                    if (didTimeout) {
-                        echo "no input was received before timeout"
-                        false // false will cause infinite loops but it's a way to keep retrying, otherwise use true and will exit the loop
-                    } else if (userInput == true) {
-                        echo "this was successful"
-                        false // if user answered then iterate through the loop again
-                    } else {
-                        echo "this was not successful"
-                        currentBuild.result = 'ABORTED'
-                        true  // if user aborted the input then exit the loop
-                    }
+                // Timeout in case to avoid running this forever
+                timeout(time: 60, unit: 'SECONDS') {
+                    inputValue = input(
+                        id: 'userInput', message: 'jobX failed let\'s rerun it?', parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                        ])
+                }
+            } catch(err) { // timeout reached or input false
+                echo err.toString()
+                def user = err.getCauses()[0].getUser()
+                if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+                    didTimeout = true
                 } else {
-                    currentBuild.result = 'SUCCESS'
-                    true  // if build finished successfully as expected then exit the loop
+                    userInput = false
+                    echo "Aborted by: [${user}]"
                 }
             }
+
+            if (didTimeout) {
+                echo "no input was received before timeout"
+                false // false will cause infinite loops but it's a way to keep retrying, otherwise use true and will exit the loop
+            } else if (userInput == true) {
+                echo "this was successful"
+                false // if user answered then iterate through the loop again
+            } else {
+                echo "this was not successful"
+                currentBuild.result = 'ABORTED'
+                true  // if user aborted the input then exit the loop
+            }
         }
+
     }
 
     stage('Deploy') {
