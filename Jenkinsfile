@@ -25,7 +25,7 @@ node {
 
     stage("Info") {
         echo "Repository : ${repository}/${reference}"
-        echo "${env.BUILD_URL}"
+        echo "$env.BUILD_URL"
 		echo "${after} => ${before}"
     }
 
@@ -44,14 +44,14 @@ node {
         } catch(e) {
             mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
                 to: 'blue.park@kt.com',
-                body: "Please go to ${env.BUILD_URL}."
+                body: "Please go to $env.BUILD_URL."
         }
     }
 
     stage('Deploy check') {
         mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
             to: 'blue.park@kt.com',
-            body: "Please go to ${env.BUILD_URL}."
+            body: "Please go to $env.BUILD_URL."
 
         def userInput = true
         def didTimeout = false
