@@ -82,15 +82,13 @@ node {
             }
 
             if (didTimeout) {
-                echo "no input was received before timeout"
-                false // false will cause infinite loops but it's a way to keep retrying, otherwise use true and will exit the loop
-            } else if (userInput == true) {
-                echo "this was successful"
-                false // if user answered then iterate through the loop again
-            } else {
-                echo "this was not successful"
                 currentBuild.result = 'ABORTED'
-                true  // if user aborted the input then exit the loop
+                false
+            } else if (userInput == true) {
+                false
+            } else {
+                currentBuild.result = 'ABORTED'
+                true
             }
         }
 
