@@ -40,7 +40,7 @@ node {
     }
 
     stage('Deploy check') {
-        mail (to: 'blue.park@kt.com;',
+        mail (to: 'blue.park@kt.com',
             subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
             body: "Please go to ${env.BUILD_URL}.");
         input "운영 환경으로 배포하시겠습니까?"
