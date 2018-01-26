@@ -26,8 +26,7 @@ node {
     stage("Info") {
         echo "${after}"
         echo "${before}"
-        echo "${reference}"
-        echo "${repository}"
+        echo "${reference}/${repository}"
     }
 
     checkout scm
