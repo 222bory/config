@@ -6,4 +6,4 @@ ${AnsiColor.BRIGHT_BLUE}╚════██║██║██║     ██║
 ${AnsiColor.BLUE}███████║██║╚██████╗╚██████╗    ╚██████╔╝███████║██║
 ${AnsiColor.BLUE}╚══════╝╚═╝ ╚═════╝ ╚═════╝     ╚═════╝ ╚══════╝╚═╝
 ${AnsiColor.BRIGHT_YELLOW}App(${application.version}), SprintBoot(${spring-boot.version})
-${AnsiStyle.NORMAL} 111
+${AnsiStyle.NORMAL}
