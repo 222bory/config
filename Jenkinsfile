@@ -39,9 +39,10 @@ node {
         archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
     }
 
-    //Not required, but sensible - this will automatically abort the build if you wait too long
-    timeout(time: 1, unit: 'WEEK') {
-        input "Approve/deny deployment to production system"
+    stage('Deploy check') {
+        steps {
+            input "운영 환경으로 배포하시겠습니까?"
+        }
     }
 
     stage('Deploy') {
