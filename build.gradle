@@ -30,7 +30,7 @@ jar {
     version =  '1.0.0-RELEASE'
 }
 
-group = 'docker.gsp.sicc.co.kr:5000'
+group = 'docker.gsp.sicc.co.kr'
 
 docker {
 	name "${project.group}/${jar.baseName}:${jar.version}"
