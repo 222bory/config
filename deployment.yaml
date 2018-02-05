@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: msa-config
+  labels:
+    app: msa-config
+    visualize: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msa-config
+  template:
+    metadata:
+      labels:
+        app: msa-config
+        version: "1.0.0-RELEASE"
+    spec:
+      containers:
+      - name: msa-config
+        image: docker.gsp.sicc.co.kr/cfg:1.0.0-RELEASE
+        ports:
+        - name: http
+          containerPort: 8888
