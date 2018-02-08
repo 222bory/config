@@ -37,7 +37,7 @@ node {
             archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
         } catch(e) {
             mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
-                to: 'blue.park@kt.com',
+                to: 'jungim.kim@sicc.co.kr',
                 body: "Please go to $env.JENKINS_URL."
         }
     }
