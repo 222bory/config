@@ -38,11 +38,11 @@ node {
         } catch(e) {
             mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
                 to: 'blue.park@kt.com',
-                body: "Please go to $env.BUILD_URL."
+                body: "Please go to $env.JENKINS_URL."
         }
     }
 
     stage('Deploy') {
-        sh 'kubectl apply -f deployment.yaml'
+        sh 'kubectl apply --namespace=development -f deployment.yaml'
     }
 }
