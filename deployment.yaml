@@ -1,7 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: msa-config
+spec:
+  type: ClusterIP
+  selector:
+    app: msa-config
+  ports:
+  - protocol: TCP
+    port: 8888
+    targetPort: 8888
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: msa-config
+  name: msa-config-deployment
   labels:
     app: msa-config
 spec:
@@ -11,15 +24,12 @@ spec:
       app: msa-config
   template:
     metadata:
-      annotations:
-        pod.beta.kubernetes.io/hostname: cfg
-        pod.beta.kubernetes.io/subdomain: msa
       labels:
         app: msa-config
         version: "1.0.1"
     spec:
       hostname: cfg
-      subdomain: msa
+      subdomain: msa-config
       containers:
       - name: msa-config
         image: docker.gsp.sicc.co.kr/cfg:1.0.1
