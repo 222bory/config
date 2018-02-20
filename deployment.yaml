@@ -11,12 +11,15 @@ spec:
       app: msa-config
   template:
     metadata:
+      annotations:
+        pod.beta.kubernetes.io/hostname: cfg
+        pod.beta.kubernetes.io/subdomain: msa
       labels:
         app: msa-config
         version: "1.0.1"
     spec:
       hostname: cfg
-      subdomain: msa-config
+      subdomain: msa
       containers:
       - name: msa-config
         image: docker.gsp.sicc.co.kr/cfg:1.0.1
