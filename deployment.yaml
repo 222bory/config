@@ -15,7 +15,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: msa-config-deployment
+  name: msa-config
   labels:
     app: msa-config
 spec:
