@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: msa-config-service
+  name: msa-config
 spec:
   type: NodePort
   selector:
@@ -29,7 +29,8 @@ spec:
         app: msa-config
         version: "1.0.1"
     spec:
-      hostname: msa-config
+      hostname: cfg
+      subdomain: msa-config
       containers:
       - name: msa-config
         image: docker.gsp.sicc.co.kr/cfg:1.0.1
