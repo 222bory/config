@@ -15,7 +15,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: msa-config
+  name: msa-config-deployment
   labels:
     app: msa-config
 spec:
@@ -29,6 +29,7 @@ spec:
         app: msa-config
         version: "1.0.1"
     spec:
+      hostname: msa-config
       containers:
       - name: msa-config
         image: docker.gsp.sicc.co.kr/cfg:1.0.1
