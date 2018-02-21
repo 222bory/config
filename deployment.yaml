@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: msa-config-svc
+  name: msa-config
 spec:
   type: ClusterIP
   selector:
@@ -11,8 +11,8 @@ spec:
     port: 8888
     targetPort: 8888
 ---
-apiVersion: extensions/v1beta1
 kind: Deployment
+apiVersion: extensions/v1beta1
 metadata:
   name: msa-config-deploy
   labels:
@@ -29,7 +29,7 @@ spec:
         version: "1.0.1"
     spec:
       hostname: cfg
-      subdomain: msa
+      subdomain: msa-config
       containers:
       - name: msa-config
         image: docker.gsp.sicc.co.kr/cfg:1.0.1
