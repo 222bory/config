@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: msa-config
+  name: msa-config-svc
 spec:
   type: ClusterIP
   selector:
@@ -14,7 +14,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: msa-config
+  name: msa-config-deploy
   labels:
     app: msa-config
 spec:
