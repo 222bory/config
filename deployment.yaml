@@ -26,13 +26,12 @@ spec:
     metadata:
       labels:
         app: msa-config
-        version: "1.0.1"
     spec:
       hostname: cfg
       subdomain: msa-config
       containers:
       - name: msa-config
-        image: docker.gsp.sicc.co.kr/cfg:1.0.1
+        image: docker.gsp.sicc.co.kr/cfg:latest
         ports:
         - name: http
           containerPort: 8888

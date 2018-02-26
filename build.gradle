@@ -10,7 +10,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.17.2"
+		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2"
 	}
 }
 
@@ -34,8 +34,11 @@ group = 'docker.gsp.sicc.co.kr'
 
 docker {
 	name "${project.group}/${jar.baseName}:${jar.version}"
+	tags 'latest'
 	files jar.archivePath
 	buildArgs(['JAR_FILE': "${jar.archiveName}"])
+	pull true
+	noCache true
 }
 
 ext {
