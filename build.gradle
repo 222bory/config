@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.9.RELEASE'
+		dockerPluginVersion = '0.19.2'
 	}
 	repositories {
 		mavenCentral()
@@ -10,7 +11,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2"
+		classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:${dockerPluginVersion}"
 	}
 }
 
