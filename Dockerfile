@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk-alpine
-LABEL maintainer="Leonardo Park"
+LABEL maintainer="tester01"
 VOLUME /tmp
 ARG JAR_FILE
 ADD ${JAR_FILE} app.jar
