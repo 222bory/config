@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: https://bitbucket.org/ransang/config-repo.git
+          uri: https://bitbucket.org/ransang/config-repo
 endpoints:
   shutdown:
     enabled: true
