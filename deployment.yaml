@@ -31,7 +31,7 @@ spec:
       subdomain: msa-config
       containers:
       - name: msa-config
-        image: docker.gsp.sicc.co.kr/cfg:1.0.2
+        image: 806177156447.dkr.ecr.ap-northeast-2.amazonaws.com/cfg:1.0.2
         ports:
         - name: http
           containerPort: 8888
