@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: http://git.gsp.sicc.co.kr/MSA/config-repo.git
+          uri: https://bitbucket.org/ransang/config-repo.git
 endpoints:
   shutdown:
     enabled: true
