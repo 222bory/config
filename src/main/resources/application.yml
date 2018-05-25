@@ -8,6 +8,8 @@ spring:
       server:
         git:
           uri: https://bitbucket.org/ransang/config-repo
+          username: ransang80@gmail.com
+          password: New1234!
 endpoints:
   shutdown:
     enabled: true
