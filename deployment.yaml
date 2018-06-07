@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: msa-config
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: msa-config
   ports:
@@ -31,7 +31,7 @@ spec:
       subdomain: msa-config
       containers:
       - name: msa-config
-        image: 806177156447.dkr.ecr.ap-northeast-2.amazonaws.com/cfg:1.0.2
+        image: 598754758627.dkr.ecr.ap-northeast-2.amazonaws.com/cfg:1.0.2
         ports:
         - name: http
           containerPort: 8888
